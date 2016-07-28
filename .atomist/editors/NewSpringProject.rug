@@ -20,7 +20,7 @@ let old_class = "SpringRest"
 let old_package = "com.atomist.springrest"
 
 # Now we invoke generic editors that do the actual work
-UpdateReadme
-PomParameterizer
-PackageMove
-ClassRenamer
+common-editors.UpdateReadme
+common-editors.PomParameterizer
+common-editors.PackageMove
+common-editors.ClassRenamer

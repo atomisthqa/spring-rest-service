@@ -1,9 +1,0 @@
-scenario Properties2Yaml should convert an existing application.properties file to application.yml
-
-given
-  ArchiveRoot
-
-  AtomistApplicationProperties2Yaml
-
-then
-  fileExists "src/main/resources/application.yml"
