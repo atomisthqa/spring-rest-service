@@ -41,7 +41,7 @@ public class SpringRestOutOfContainerIntegrationTests {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("text/plain;charset=UTF-8"))
-                .andExpect(content().string("Hello Microservice World"))
+                .andExpect(content().string("Hello REST Microservice World"))
                 .andReturn();
     }
  }

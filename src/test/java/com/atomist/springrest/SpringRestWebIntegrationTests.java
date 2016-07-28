@@ -23,7 +23,7 @@ public class SpringRestWebIntegrationTests {
 
     // Parameterize tests like this
     private static final String AN_APP_PATH = "http://localhost:" + PORT + "/path";
- 
+
     // Use this to run tests
     private RestTemplate restTemplate = new RestTemplate();
 
