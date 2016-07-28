@@ -55,9 +55,23 @@ let old_class = "SpringRest"
 let old_package = "com.atomist.springrest"
 
 # Now we invoke generic editors that do the actual work
-UpdateReadme
+
+SwitchReadmes
 PomParameterizer artifact_id = name
 PackageMove
 ClassRenamer
 MarkOriginalGitHistoryForDeletionFromGeneratedProject
 UpdateDockerfileToArtifactId artifact_id = name
+
+
+editor SwitchReadmes
+
+@description "Name of the new project"
+param name: @project_name
+
+@description "Description of the new project"
+param description: .*
+
+with project p begin
+	do merge "readme.vm" "README.md"
+end
