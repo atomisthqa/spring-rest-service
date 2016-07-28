@@ -43,6 +43,10 @@ param version: @semantic_version
 @description "Root package for your generated source"
 param new_package: @java_package
 
+@description "New name for the class"
+@validInput "Java class names may contain alphanumeric characters, $ and _"
+param new_class: @java_class
+
 # Pattern to replace in old class name.
 let old_class = "SpringRest"
 
@@ -53,4 +57,4 @@ let old_package = "com.atomist.springrest"
 UpdateReadme
 PomParameterizer
 PackageMove
-# ClassRenamer
+ClassRenamer
