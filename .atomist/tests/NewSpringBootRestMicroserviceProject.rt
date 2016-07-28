@@ -1,0 +1,17 @@
+scenario NewSpringBootRestMicroserviceproject should generate a new and working Spring Boot Rest Microservice project
+
+let name = "mynewspringmicroservice"
+let description = "My excellent new microservice"
+let group_id = "atomist"
+let new_package = "com.myorg"
+let new_class = "MyNewMicroservice"
+let artifact_id = "mynewproject"
+let version = "0.0.1-SNAPSHOT"
+
+given
+  ArchiveRoot
+
+  NewSpringBootRestMicroserviceProject
+
+then
+  dumpAll
