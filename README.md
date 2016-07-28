@@ -1,1 +1,3 @@
-# rest-service
+# {{name}}
+
+{{description}}

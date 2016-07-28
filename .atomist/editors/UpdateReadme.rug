@@ -1,0 +1,18 @@
+
+@tag "readme"
+@description """
+	Update README.md to replace placeholders. See
+	README.md in the root directory of this archive.
+"""
+editor UpdateReadme
+
+@description "Name of the new project"
+param name: @project_name
+
+@description "Description of the new project"
+param description: .*
+
+with file f when { f.name().contains("README.md") } begin
+	do replace "{{name}}" name
+	do replace "{{description}}" description
+end

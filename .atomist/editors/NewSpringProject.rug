@@ -1,0 +1,26 @@
+/*
+	Published editor that will be a generator entry point.
+	Corresponds to old spring-rest-service template.
+	Dependent on known package and class naming of the start point project.
+	Parameters from the editors used will propagate to
+	entry point, except for old_class and old_package, which are overridden.
+*/
+@tag "java"
+@tag "spring"
+@tag "spring-boot"
+# @tags [ "java", "spring", ]
+@description "Creates a new Spring Rest project"
+@generator "Spring Rest"
+editor NewSpringProject
+
+# Pattern to replace in old class name.
+let old_class = "SpringRest"
+
+# Root package of the old file
+let old_package = "com.atomist.springrest"
+
+# Now we invoke generic editors that do the actual work
+UpdateReadme
+PomParameterizer
+PackageMove
+ClassRenamer

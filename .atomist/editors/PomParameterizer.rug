@@ -1,0 +1,35 @@
+
+
+@tag "java"
+@tag "maven"
+@description "Update a Maven pom to new group, artifact, version and description"
+editor PomParameterizer
+
+@optional
+@description "Artifact Id: Used by Maven"
+@defaultRef "name"
+param artifact_id: @artifact_id
+
+@description "Group id: Used by Maven"
+param group_id: @group_id
+
+@maxLength 21
+@description "Name of the new project. Used for the GitHub repo and in Maven POM."
+param name: @project_name
+
+@default "0.0.1"
+@optional
+@description "Version of your project. Used in Maven POM"
+param version: @semantic_version
+
+@description "Description of your new project"
+param description: .*
+
+with xml x when path = "pom.xml"
+begin
+	do setSimpleNode "artifactId" artifact_id
+	do setSimpleNode "group" group_id
+	do setSimpleNode "version" version
+	do setSimpleNode "name" name
+	do setSimpleNode "description" description
+end

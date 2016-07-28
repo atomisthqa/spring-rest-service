@@ -1,0 +1,14 @@
+
+scenario PackageMove should move base package and leave no references to old packages
+
+let oldpack = "com.atomist.springrest"
+let newpack = "com.foo.bar"
+
+given
+  ArchiveRoot
+
+  PackageMove old_package= oldpack, new_package = newpack
+
+then
+  fileExists "src/main/java/com/foo/bar/SpringRestConfiguration.java"
+  and { !p.anyFileContains(".java", oldpack) }
