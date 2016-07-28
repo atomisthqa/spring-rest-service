@@ -13,6 +13,11 @@
 @generator "Spring Rest"
 editor NewSpringProject
 
+uses common-editors.UpdateReadme
+uses common-editors.PomParameterizer
+uses common-editors.PackageMove
+uses common-editors.ClassRenamer
+
 # Pattern to replace in old class name.
 let old_class = "SpringRest"
 
@@ -20,7 +25,7 @@ let old_class = "SpringRest"
 let old_package = "com.atomist.springrest"
 
 # Now we invoke generic editors that do the actual work
-common-editors.UpdateReadme
-common-editors.PomParameterizer
-common-editors.PackageMove
-common-editors.ClassRenamer
+UpdateReadme
+PomParameterizer
+PackageMove
+ClassRenamer
