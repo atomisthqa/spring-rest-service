@@ -1,4 +1,4 @@
-package $package_name;
+package com.atomist.springrest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
