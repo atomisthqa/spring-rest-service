@@ -17,6 +17,7 @@ uses common-editors.UpdateReadme
 uses common-editors.PomParameterizer
 uses common-editors.PackageMove
 uses common-editors.ClassRenamer
+uses common-editors.MarkOriginalGitHistoryForDeletionFromGeneratedProject
 
 @maxLength 21
 @description "Name of the new project."
@@ -25,10 +26,10 @@ param name: @project_name
 @description "Description of the new project"
 param description: .*
 
-@description "Artifact Id: Used by Maven"
-@defaultRef "name"
-@optional
-param artifact_id: @artifact_id
+# @description "Artifact Id: Used by Maven"
+# @defaultRef "name"
+# @optional
+# param artifact_id: @artifact_id
 
 @description "Group id: Used by Maven"
 param group_id: @group_id
@@ -55,6 +56,7 @@ let old_package = "com.atomist.springrest"
 
 # Now we invoke generic editors that do the actual work
 UpdateReadme
-PomParameterizer
+PomParameterizer artifact_id = name
 PackageMove
 ClassRenamer
+MarkOriginalGitHistoryForDeletionFromGeneratedProject
