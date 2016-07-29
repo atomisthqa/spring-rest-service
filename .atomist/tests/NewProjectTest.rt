@@ -1,8 +1,11 @@
 scenario New project should pass smoke test
 
-let project_name = "Foo"
+let project_name = "foo"
 let new_package = "com.foo.bar"
-let v = "0.0.1"
+let ver = "0.0.1"
+
+let pomPath = "pom.xml"
+let readmePath = "README.md"
 
 given
   ArchiveRoot
@@ -11,10 +14,13 @@ NewSpringBootRestMicroserviceProject
     name = project_name,
     description = "And now for something completely different",
     group_id = "somegroup",
-    version = v,
+    version = ver,
     new_class = "MyTest"
 
 then
   fileExists "Dockerfile"
-  and fileContains "Dockerfile" { project_name + "-" + v + ".jar" }
+  and fileContains "Dockerfile" { project_name + "-" + ver + ".jar" }
   and fileExists "src/main/java/com/foo/bar/MyTestApplication.java"
+  and fileContains pomPath name
+  and fileContains pomPath ver
+  and fileContains readmePath project_name
