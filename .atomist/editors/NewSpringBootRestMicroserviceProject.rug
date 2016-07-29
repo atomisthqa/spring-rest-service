@@ -66,12 +66,12 @@ UpdateDockerfileToArtifactId artifact_id = name
 
 editor SwitchReadmes
 
-@description "Name of the new project"
 param name: @project_name
 
 @description "Description of the new project"
 param description: .*
 
-with project p begin
-	do merge "readme.vm" "README.md"
-end
+let template = "readme.vm"
+
+with project p
+	do merge  template to "README.md"
