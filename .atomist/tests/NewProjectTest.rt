@@ -17,3 +17,4 @@ NewSpringBootRestMicroserviceProject
 then
   fileExists "Dockerfile"
   and fileContains "Dockerfile" { project_name + "-" + v + ".jar" }
+  and fileExists "src/main/java/com/foo/bar/MyTestApplication.java"
