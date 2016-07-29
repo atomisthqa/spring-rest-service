@@ -60,7 +60,6 @@ SwitchReadmes
 PomParameterizer artifact_id = name
 PackageMove
 ClassRenamer
-MarkOriginalGitHistoryForDeletionFromGeneratedProject
 UpdateDockerfileToArtifactId artifact_id = name
 
 
