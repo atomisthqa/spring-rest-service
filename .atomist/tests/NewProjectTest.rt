@@ -3,6 +3,8 @@ scenario New project should pass smoke test
 let project_name = "foo"
 let new_package = "com.foo.bar"
 let ver = "0.0.1"
+let newclass = "MyTest"
+let propsFile = "src/main/resources/application.properties"
 
 let pomPath = "pom.xml"
 let readmePath = "README.md"
@@ -15,12 +17,15 @@ NewSpringBootRestMicroserviceProject
     description = "And now for something completely different",
     group_id = "somegroup",
     version = ver,
-    new_class = "MyTest"
+    new_class = newclass
 
 then
   fileExists "Dockerfile"
   and fileContains "Dockerfile" { project_name + "-" + ver + ".jar" }
-  and fileExists "src/main/java/com/foo/bar/MyTestApplication.java"
+  and fileExists { "src/main/java/com/foo/bar/" + newclass + "Application.java" }
+  and fileExists { "src/test/java/com/foo/bar/" + newclass + "ApplicationTests.java" }
   and fileContains pomPath name
   and fileContains pomPath ver
   and fileContains readmePath project_name
+  and fileExists propsFile
+  and fileContains propsFile "server.port=8080"
