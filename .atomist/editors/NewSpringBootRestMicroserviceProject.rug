@@ -58,9 +58,24 @@ let old_package = "com.atomist.springrest"
 
 SwitchReadmes
 PomParameterizer artifact_id = name
+SetApplicationProperties
 PackageMove
 ClassRenamer
 UpdateDockerfileToArtifactId artifact_id = name
+
+
+editor SetApplicationProperties
+
+param name: @project_name
+param version: @semantic_version
+param group_id: @group_id
+
+with properties p when path = "src/main/resources/application.properties"
+begin
+  do setProperty "info.app.artifact_id" name
+	do setProperty "info.app.group_id" group_id
+	do setProperty "info.app.version" version
+end
 
 
 editor SwitchReadmes

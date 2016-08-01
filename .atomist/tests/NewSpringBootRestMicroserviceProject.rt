@@ -5,6 +5,7 @@ let new_package = "com.foo.bar"
 let ver = "0.0.1"
 let newclass = "MyTest"
 let propsFile = "src/main/resources/application.properties"
+let grpid = "somegroup"
 
 let pomPath = "pom.xml"
 let readmePath = "README.md"
@@ -15,7 +16,7 @@ given
 NewSpringBootRestMicroserviceProject
     name = project_name,
     description = "And now for something completely different",
-    group_id = "somegroup",
+    group_id = grpid,
     version = ver,
     new_class = newclass
 
@@ -29,3 +30,6 @@ then
   and fileContains readmePath project_name
   and fileExists propsFile
   and fileContains propsFile "server.port=8080"
+  and fileContains propsFile { "info.app.artifact_id=" + project_name }
+  and fileContains propsFile { "info.app.group_id=" + grpid }
+  and fileContains propsFile { "info.app.version=" + ver }
