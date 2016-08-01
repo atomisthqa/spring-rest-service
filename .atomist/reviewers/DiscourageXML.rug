@@ -1,0 +1,7 @@
+
+
+reviewer DiscourageXML
+
+with file f when f.name.endsWith ".xml" # and f.contains "<beans"
+  do minorProblem
+    { "We don't recommend using XML to configure Spring applications, but found " + f.path() }
