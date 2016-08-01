@@ -17,7 +17,6 @@ uses common-editors.UpdateReadme
 uses common-editors.PomParameterizer
 uses common-editors.PackageMove
 uses common-editors.ClassRenamer
-uses common-editors.MarkOriginalGitHistoryForDeletionFromGeneratedProject
 
 @maxLength 21
 @description "Name of the new project."
