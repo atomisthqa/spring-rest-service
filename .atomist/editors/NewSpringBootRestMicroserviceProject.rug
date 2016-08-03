@@ -13,10 +13,10 @@
 @generator "Spring Boot Rest Microservice"
 editor NewSpringBootRestMicroserviceProject
 
-uses common-editors.UpdateReadme
-uses common-editors.PomParameterizer
-uses common-editors.PackageMove
-uses common-editors.ClassRenamer
+uses atomist.common-editors.UpdateReadme
+uses atomist.common-editors.PomParameterizer
+uses atomist.common-editors.PackageMove
+uses atomist.common-editors.ClassRenamer
 
 @maxLength 21
 @description "Name of the new project."
