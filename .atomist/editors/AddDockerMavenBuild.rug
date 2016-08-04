@@ -139,7 +139,6 @@ with project p
 editor AddReadmeDocumentation
 
 let dockerReadmeDocs = """
-
 To run inside a docker container
 --------------------------------
 
