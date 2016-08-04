@@ -8,3 +8,13 @@ with xml x when path = "pom.xml" and { !x.content().contains("git-commit-id-plug
 
 with xml x when path = "pom.xml" and { !x.content().contains("docker-maven-plugin") }
   do addChildNode "//project/build/plugins" "plugin" dockerMavenPlugin
+
+AddDockerfile
+
+
+editor AddDockerfile
+
+let template = "Dockerfile.vm"
+
+with project p
+  do merge template to "src/main/docker/Dockerfile"
