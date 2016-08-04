@@ -1,7 +1,32 @@
 editor AddDockerMavenBuild
 
+@description "Name of the docker repository to push artifacts to."
+param dockerRepository: .*
+
 let gitPlugin = "<plugin><groupId>pl.project13.maven</groupId><artifactId>git-commit-id-plugin</artifactId></plugin>"
-let dockerMavenPlugin = "<plugin><groupId>com.spotify</groupId><artifactId>docker-maven-plugin</artifactId><version>0.4.11</version><configuration><imageName>sforzando-docker-dockerv2-local.artifactoryonline.com/${project.name}</imageName><dockerDirectory>${project.build.directory}/docker-filtered</dockerDirectory><resources><resource><targetPath>/</targetPath><directory>${project.build.directory}</directory><include>${project.build.finalName}.jar</include></resource></resources><useConfigFile>true</useConfigFile><forceTags>true</forceTags><imageTags><imageTag>${git.commit.id.abbrev}</imageTag><imageTag>${project.version}</imageTag><imageTag>latest</imageTag></imageTags></configuration></plugin>"
+let dockerMavenPlugin = """<plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.11</version>
+                <configuration>
+                    <imageName>{{docker-repo}}/${project.name}</imageName>
+                    <dockerDirectory>${project.build.directory}/docker-filtered</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <useConfigFile>true</useConfigFile>
+                    <forceTags>true</forceTags>
+                    <imageTags>
+                        <imageTag>${git.commit.id.abbrev}</imageTag>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                </configuration>
+            </plugin>"""
 
 let mavenDependencyPlugin = """<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -38,6 +63,29 @@ let mavenDependencyPlugin = """<plugin>
                 </executions>
             </plugin>"""
 
+let mavenResourcesPlugin = """<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>prepare-dockerfile</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/docker-filtered</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/docker</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>"""
+
 with xml x when path = "pom.xml" and { !x.content().contains("git-commit-id-plugin") }
   do addChildNode "//project/build/plugins" "plugin" gitPlugin
 
@@ -46,6 +94,12 @@ with xml x when path = "pom.xml" and { !x.content().contains("docker-maven-plugi
 
 with xml x when path = "pom.xml" and { !x.content().contains("maven-dependency-plugin") }
   do addChildNode "//project/build/plugins" "plugin" mavenDependencyPlugin
+
+with xml x when path = "pom.xml" and { !x.content().contains("maven-resources-plugin") }
+  do addChildNode "//project/build/plugins" "plugin" mavenResourcesPlugin
+
+with file f when path = "pom.xml"
+  do replace "{{docker-repo}}" dockerRepository
 
 AddDockerfile
 

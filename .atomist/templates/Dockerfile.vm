@@ -1,4 +1,4 @@
-FROM sforzando-docker-dockerv2-local.artifactoryonline.com/newrelic:8-jre
+FROM java:8-jre
 
 COPY @project.build.finalName@.jar /opt/build/
 

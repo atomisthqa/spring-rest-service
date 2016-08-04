@@ -2,6 +2,13 @@ scenario AddDockerMavenBuild should add the new files and entries for Docker
 
 let pomFile = "pom.xml"
 
+/*
+ Nothing special about localhost:5000,
+ Other than the fact it is the default for a local
+ docker registry, see https://docs.docker.com/registry/deploying/
+ */
+let dockerRepository = "localhost:5000"
+
 given
   ArchiveRoot
 
@@ -12,3 +19,5 @@ then
   and fileContains pomFile "docker-maven-plugin"
   and fileExists "src/main/docker/Dockerfile"
   and fileContains pomFile "maven-dependency-plugin"
+  and fileContains pomFile "maven-resources-plugin"
+  and fileContains pomFile "localhost:5000"
