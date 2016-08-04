@@ -1,0 +1,13 @@
+scenario UpdateServicePort should update all references to the service port
+
+let propsFile = "src/main/resources/application.properties"
+
+let servicePort = "8181"
+
+given
+  ArchiveRoot
+
+  UpdateServicePort
+
+then
+  fileContains propsFile "server.port=8181"
