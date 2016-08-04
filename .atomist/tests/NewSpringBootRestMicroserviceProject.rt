@@ -28,6 +28,3 @@ then
   and fileContains readmePath project_name
   and fileExists propsFile
   and fileContains propsFile "server.port=8080"
-  and fileContains propsFile { "info.app.artifact_id=" + project_name }
-  and fileContains propsFile { "info.app.group_id=" + grpid }
-  and fileContains propsFile { "info.app.version=" + ver }

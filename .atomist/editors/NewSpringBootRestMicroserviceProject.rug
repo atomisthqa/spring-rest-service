@@ -57,7 +57,6 @@ let old_package = "com.atomist.springrest"
 
 SwitchReadmes
 PomParameterizer artifact_id = name
-SetApplicationProperties
 PackageMove
 ClassRenamer
 AddCreationDate
