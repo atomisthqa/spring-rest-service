@@ -6,4 +6,4 @@ WORKDIR /opt/build
 
 EXPOSE 8080
 
-CMD ["-Xmx1g", "-jar", "@project.build.finalName@.jar"]
+CMD ["java", "-Xmx1g", "-jar", "@project.build.finalName@.jar"]
