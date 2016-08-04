@@ -1,0 +1,10 @@
+editor AddDockerMavenBuild
+
+let gitPlugin = "<plugin><groupId>pl.project13.maven</groupId><artifactId>git-commit-id-plugin</artifactId></plugin>"
+let dockerMavenPlugin = "<plugin><groupId>com.spotify</groupId><artifactId>docker-maven-plugin</artifactId><version>0.4.11</version><configuration><imageName>sforzando-docker-dockerv2-local.artifactoryonline.com/${project.name}</imageName><dockerDirectory>${project.build.directory}/docker-filtered</dockerDirectory><resources><resource><targetPath>/</targetPath><directory>${project.build.directory}</directory><include>${project.build.finalName}.jar</include></resource></resources><useConfigFile>true</useConfigFile><forceTags>true</forceTags><imageTags><imageTag>${git.commit.id.abbrev}</imageTag><imageTag>${project.version}</imageTag><imageTag>latest</imageTag></imageTags></configuration></plugin>"
+
+with xml x when path = "pom.xml" and { !x.content().contains("git-commit-id-plugin") }
+  do addChildNode "//project/build/plugins" "plugin" gitPlugin
+
+with xml x when path = "pom.xml" and { !x.content().contains("docker-maven-plugin") }
+  do addChildNode "//project/build/plugins" "plugin" dockerMavenPlugin

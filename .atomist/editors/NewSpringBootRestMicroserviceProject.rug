@@ -59,7 +59,7 @@ SwitchReadmes
 PomParameterizer artifact_id = name
 PackageMove
 ClassRenamer
-AddCreationDate
+AddCreationDateToReadme
 
 
 editor SetApplicationProperties
@@ -88,7 +88,7 @@ let template = "readme.vm"
 with project p
 	do merge template to "README.md"
 
-editor AddCreationDate
+editor AddCreationDateToReadme
 
 with file f when path = "README.md"
   do replace "{{creation_date}}" { new Date().toISOString().split('T')[0] }

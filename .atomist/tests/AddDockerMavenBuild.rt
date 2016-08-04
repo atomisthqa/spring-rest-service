@@ -1,0 +1,9 @@
+scenario AddDockerMavenBuild should add the new files and entries for Docker
+
+given
+  ArchiveRoot
+  AddDockerMavenBuild
+
+then
+  fileContains "pom.xml" "git-commit-id-plugin"
+  and fileContains "pom.xml" "docker-maven-plugin"
