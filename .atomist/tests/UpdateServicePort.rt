@@ -1,4 +1,4 @@
-scenario UpdateServicePort should update all references to the service port
+scenario UpdateServicePort should update application.properties service port
 
 let propsFile = "src/main/resources/application.properties"
 
@@ -11,3 +11,30 @@ given
 
 then
   fileContains propsFile "server.port=8181"
+
+
+scenario UpdateServicePort should update Dockerfile expose when present
+
+let dockerfile = "src/main/docker/Dockerfile"
+
+let servicePort = "8181"
+
+given
+  src/main/docker/Dockerfile = """
+  FROM java:8-jre
+
+  COPY @project.build.finalName@.jar /opt/build/
+
+  WORKDIR /opt/build
+
+  EXPOSE 8080
+
+  blah"""
+
+  UpdateServicePort
+
+then
+  dump dockerfile
+  and fileExists dockerfile
+  and fileContains dockerfile "EXPOSE 8181"
+  and fileContains dockerfile "blah"

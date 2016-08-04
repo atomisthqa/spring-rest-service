@@ -4,3 +4,6 @@ param servicePort: .*
 
 with properties p when path = "src/main/resources/application.properties"
   do setProperty "server.port" servicePort
+
+with file f when path = "src/main/docker/Dockerfile"
+  do regexpReplace "EXPOSE.*" { "EXPOSE " + servicePort }
