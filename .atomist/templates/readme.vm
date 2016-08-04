@@ -2,6 +2,8 @@
 $name microservice
 ===========================
 
+Originally created on {{creation_date}}.
+
 $name
 
 To run locally
@@ -23,29 +25,3 @@ This microservice comes with some rudimentary tests as a good starting point for
 ```shell
 > ./mvnw test
 ```
-
-To run inside a docker container
---------------------------------
-
-You can build, pacakge and run this microservice using Docker right out of the box. First make sure you have build the microservice locally by executing the following Maven command:
-
-```shell
-> ./mvnw package
-```
-
-Now you have built the necessary artifacts, the next step is to build your docker image. From a terminal where you have access to Docker, execute the following command:
-
-```shell
-> docker build -t my_microservice .
-```
-
-You can now run your dockerized microservice with the following command:
-
-```shell
-> docker run -name -p8080:8080 my_microservice -i -t my_microservice
-```
-
-History
--------
-
-Originally created on {{creation_date}}.

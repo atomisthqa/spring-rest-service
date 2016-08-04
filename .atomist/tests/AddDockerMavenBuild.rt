@@ -21,3 +21,4 @@ then
   and fileContains pomFile "maven-resources-plugin"
   and fileExists "src/main/docker/Dockerfile"
   and fileContains pomFile dockerRepository
+  and fileContains "README.md" "To run inside a docker container"
