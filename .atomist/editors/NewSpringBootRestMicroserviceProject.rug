@@ -60,6 +60,7 @@ PomParameterizer artifact_id = name
 SetApplicationProperties
 PackageMove
 ClassRenamer
+AddCreationDate
 
 
 editor SetApplicationProperties
@@ -86,4 +87,9 @@ param description: .*
 let template = "readme.vm"
 
 with project p
-	do merge  template to "README.md"
+	do merge template to "README.md"
+
+editor AddCreationDate
+
+with file f when path = "README.md"
+  do replace "{{creation_date}}" { new Date().toISOString().split('T')[0] }
