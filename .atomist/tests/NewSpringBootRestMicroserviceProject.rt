@@ -10,6 +10,8 @@ let grpid = "somegroup"
 let pomPath = "pom.xml"
 let readmePath = "README.md"
 
+let logbackFile = "src/main/resources/logback.xml"
+
 given
   ArchiveRoot
 
@@ -28,3 +30,5 @@ then
   and fileContains readmePath project_name
   and fileExists propsFile
   and fileContains propsFile "server.port=8080"
+  and fileExists logbackFile
+  and fileContains logbackFile new_package

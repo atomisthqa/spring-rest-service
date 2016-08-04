@@ -60,6 +60,7 @@ PomParameterizer artifact_id = name
 PackageMove
 ClassRenamer
 AddCreationDateToReadme
+AddLogback
 
 
 editor SetApplicationProperties
@@ -88,7 +89,18 @@ let template = "readme.vm"
 with project p
 	do merge template to "README.md"
 
+
 editor AddCreationDateToReadme
 
 with file f when path = "README.md"
   do replace "{{creation_date}}" { new Date().toISOString().split('T')[0] }
+
+
+editor AddLogback
+
+param new_package: @java_package
+
+let template = "logback.vm"
+
+with project p
+	do merge template to "src/main/resources/logback.xml"
