@@ -21,9 +21,7 @@ NewSpringBootRestMicroserviceProject
     new_class = newclass
 
 then
-  fileExists "Dockerfile"
-  and fileContains "Dockerfile" { project_name + "-" + ver + ".jar" }
-  and fileExists { "src/main/java/com/foo/bar/" + newclass + "Application.java" }
+  fileExists { "src/main/java/com/foo/bar/" + newclass + "Application.java" }
   and fileExists { "src/test/java/com/foo/bar/" + newclass + "ApplicationTests.java" }
   and fileContains pomPath name
   and fileContains pomPath ver

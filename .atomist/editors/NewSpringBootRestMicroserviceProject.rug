@@ -60,7 +60,6 @@ PomParameterizer artifact_id = name
 SetApplicationProperties
 PackageMove
 ClassRenamer
-UpdateDockerfileToArtifactId artifact_id = name
 
 
 editor SetApplicationProperties

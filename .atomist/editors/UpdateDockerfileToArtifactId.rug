@@ -1,6 +1,0 @@
-editor UpdateDockerfileToArtifactId
-
-param artifact_id: @artifact_id
-
-with file f when { f.name().contains("Dockerfile") }
-	do replace "spring-rest" artifact_id
