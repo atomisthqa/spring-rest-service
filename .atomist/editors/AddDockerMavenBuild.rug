@@ -1,32 +1,51 @@
+@tag "java"
+@tag "spring"
+@description "Adds Maven infrastructure and source files to package and distribute project as a Docker Image"
 editor AddDockerMavenBuild
 
 @description "Name of the docker repository to push artifacts to."
 param dockerRepository: .*
 
-let gitPlugin = "<plugin><groupId>pl.project13.maven</groupId><artifactId>git-commit-id-plugin</artifactId></plugin>"
-let dockerMavenPlugin = """<plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.4.11</version>
-                <configuration>
-                    <imageName>{{docker-repo}}/${project.name}</imageName>
-                    <dockerDirectory>${project.build.directory}/docker-filtered</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                    <useConfigFile>true</useConfigFile>
-                    <forceTags>true</forceTags>
-                    <imageTags>
-                        <imageTag>${git.commit.id.abbrev}</imageTag>
-                        <imageTag>${project.version}</imageTag>
-                        <imageTag>latest</imageTag>
-                    </imageTags>
-                </configuration>
+AddGitMavenPlugin
+AddDockerMavenPlugin
+AddDockerMavenDependencyPlugin
+AddDockerMavenResourcesPlugin
+AddDockerfile
+
+with file f when path = "pom.xml"
+  do replace "{{docker-repo}}" dockerRepository
+
+
+editor AddDockerMavenResourcesPlugin
+
+let mavenResourcesPlugin = """<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>prepare-dockerfile</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/docker-filtered</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/docker</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>"""
+
+with xml x when path = "pom.xml" and { !x.content().contains("maven-resources-plugin") }
+  do addChildNode "//project/build/plugins" "plugin" mavenResourcesPlugin
+
+
+editor AddDockerMavenDependencyPlugin
 
 let mavenDependencyPlugin = """<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -63,45 +82,49 @@ let mavenDependencyPlugin = """<plugin>
                 </executions>
             </plugin>"""
 
-let mavenResourcesPlugin = """<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>prepare-dockerfile</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/docker-filtered</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/docker</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>"""
+with xml x when path = "pom.xml" and { !x.content().contains("maven-dependency-plugin") }
+  do addChildNode "//project/build/plugins" "plugin" mavenDependencyPlugin
 
-with xml x when path = "pom.xml" and { !x.content().contains("git-commit-id-plugin") }
-  do addChildNode "//project/build/plugins" "plugin" gitPlugin
+
+editor AddDockerMavenPlugin
+
+let dockerMavenPlugin = """<plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.11</version>
+                <configuration>
+                    <imageName>{{docker-repo}}/${project.name}</imageName>
+                    <dockerDirectory>${project.build.directory}/docker-filtered</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <useConfigFile>true</useConfigFile>
+                    <forceTags>true</forceTags>
+                    <imageTags>
+                        <imageTag>${git.commit.id.abbrev}</imageTag>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                </configuration>
+            </plugin>"""
 
 with xml x when path = "pom.xml" and { !x.content().contains("docker-maven-plugin") }
   do addChildNode "//project/build/plugins" "plugin" dockerMavenPlugin
 
-with xml x when path = "pom.xml" and { !x.content().contains("maven-dependency-plugin") }
-  do addChildNode "//project/build/plugins" "plugin" mavenDependencyPlugin
 
-with xml x when path = "pom.xml" and { !x.content().contains("maven-resources-plugin") }
-  do addChildNode "//project/build/plugins" "plugin" mavenResourcesPlugin
+editor AddGitMavenPlugin
 
-with file f when path = "pom.xml"
-  do replace "{{docker-repo}}" dockerRepository
+let gitPlugin = """<plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+            </plugin>"""
 
-AddDockerfile
+with xml x when path = "pom.xml" and { !x.content().contains("git-commit-id-plugin") }
+  do addChildNode "//project/build/plugins" "plugin" gitPlugin
 
 
 editor AddDockerfile

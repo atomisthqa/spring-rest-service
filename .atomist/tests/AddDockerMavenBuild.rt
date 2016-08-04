@@ -17,7 +17,7 @@ given
 then
   fileContains pomFile "git-commit-id-plugin"
   and fileContains pomFile "docker-maven-plugin"
-  and fileExists "src/main/docker/Dockerfile"
   and fileContains pomFile "maven-dependency-plugin"
   and fileContains pomFile "maven-resources-plugin"
-  and fileContains pomFile "localhost:5000"
+  and fileExists "src/main/docker/Dockerfile"
+  and fileContains pomFile dockerRepository
