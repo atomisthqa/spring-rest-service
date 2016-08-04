@@ -9,7 +9,7 @@ let grpid = "somegroup"
 
 let pomPath = "pom.xml"
 let readmePath = "README.md"
-
+let description = "And now for something completely different"
 let logbackFile = "src/main/resources/logback.xml"
 
 given
@@ -17,7 +17,6 @@ given
 
 NewSpringBootRestMicroserviceProject
     name = project_name,
-    description = "And now for something completely different",
     group_id = grpid,
     version = ver,
     new_class = newclass
@@ -28,6 +27,7 @@ then
   and fileContains pomPath name
   and fileContains pomPath ver
   and fileContains readmePath project_name
+  and fileContains readmePath description
   and fileExists propsFile
   and fileContains propsFile "server.port=8080"
   and fileExists logbackFile

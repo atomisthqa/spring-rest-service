@@ -4,7 +4,7 @@ $name microservice
 
 Originally created on {{creation_date}}.
 
-$name
+$description
 
 To run locally
 --------------
