@@ -3,11 +3,49 @@ editor AddDockerMavenBuild
 let gitPlugin = "<plugin><groupId>pl.project13.maven</groupId><artifactId>git-commit-id-plugin</artifactId></plugin>"
 let dockerMavenPlugin = "<plugin><groupId>com.spotify</groupId><artifactId>docker-maven-plugin</artifactId><version>0.4.11</version><configuration><imageName>sforzando-docker-dockerv2-local.artifactoryonline.com/${project.name}</imageName><dockerDirectory>${project.build.directory}/docker-filtered</dockerDirectory><resources><resource><targetPath>/</targetPath><directory>${project.build.directory}</directory><include>${project.build.finalName}.jar</include></resource></resources><useConfigFile>true</useConfigFile><forceTags>true</forceTags><imageTags><imageTag>${git.commit.id.abbrev}</imageTag><imageTag>${project.version}</imageTag><imageTag>latest</imageTag></imageTags></configuration></plugin>"
 
+let mavenDependencyPlugin = """<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>${project.artifactId}</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <outputDirectory>${project.build.directory}/docker</outputDirectory>
+                                    <includes>lib/*</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>${project.artifactId}</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <outputDirectory>${project.build.directory}/docker/classes</outputDirectory>
+                                    <excludes>lib/*</excludes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>"""
+
 with xml x when path = "pom.xml" and { !x.content().contains("git-commit-id-plugin") }
   do addChildNode "//project/build/plugins" "plugin" gitPlugin
 
 with xml x when path = "pom.xml" and { !x.content().contains("docker-maven-plugin") }
   do addChildNode "//project/build/plugins" "plugin" dockerMavenPlugin
+
+with xml x when path = "pom.xml" and { !x.content().contains("maven-dependency-plugin") }
+  do addChildNode "//project/build/plugins" "plugin" mavenDependencyPlugin
 
 AddDockerfile
 

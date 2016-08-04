@@ -1,11 +1,14 @@
 scenario AddDockerMavenBuild should add the new files and entries for Docker
 
+let pomFile = "pom.xml"
+
 given
   ArchiveRoot
 
   AddDockerMavenBuild
 
 then
-  fileContains "pom.xml" "git-commit-id-plugin"
-  and fileContains "pom.xml" "docker-maven-plugin"
+  fileContains pomFile "git-commit-id-plugin"
+  and fileContains pomFile "docker-maven-plugin"
   and fileExists "src/main/docker/Dockerfile"
+  and fileContains pomFile "maven-dependency-plugin"
