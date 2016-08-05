@@ -15,8 +15,6 @@ This Spring Boot microservice is driven using Maven. To run locally simply execu
 > ./mvnw spring-boot:run
 ```
 
-This will launch the microservice on port 8080 by default.
-
 To run tests
 ------------
 
