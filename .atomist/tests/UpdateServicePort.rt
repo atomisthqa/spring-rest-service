@@ -31,6 +31,7 @@ given
 
   blah"""
 
+when
   UpdateServicePort
 
 then

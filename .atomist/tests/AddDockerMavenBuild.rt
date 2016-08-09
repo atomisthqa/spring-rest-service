@@ -12,6 +12,7 @@ let dockerRepository = "localhost:5000"
 given
   ArchiveRoot
 
+when
   AddDockerMavenBuild
 
 then

@@ -15,6 +15,7 @@ let logbackFile = "src/main/resources/logback.xml"
 given
   ArchiveRoot
 
+when
 NewSpringBootRestMicroserviceProject
     name = project_name,
     group_id = grpid,
