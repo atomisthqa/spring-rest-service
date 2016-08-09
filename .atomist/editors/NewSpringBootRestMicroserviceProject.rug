@@ -20,30 +20,31 @@ uses atomist.common-editors.ClassRenamer
 
 @maxLength 21
 @description "Name of the new project."
+@displayName "project name"
 param name: @project_name
 
 @description "Description of the new project"
+@displayName "description"
 param description: .*
 
-# @description "Artifact Id: Used by Maven"
-# @defaultRef "name"
-# @optional
-# param artifact_id: @artifact_id
-
 @description "Group id: Used by Maven"
+@displayName "Group ID"
 param group_id: @group_id
 
 @default "0.0.1-SNAPSHOT"
+@displayName "Semantic Version"
 @optional
 @description "Version of your project. Used in Maven POM"
 param version: @semantic_version
 
 @default "com.myorg"
+@displayName "Root Package"
 @optional
 @description "Root package for your generated source"
 param new_package: @java_package
 
 @description "New name for the class"
+@displayName "Class Name"
 @validInput "Java class names may contain alphanumeric characters, $ and _"
 param new_class: @java_class
 
@@ -63,25 +64,12 @@ AddCreationDateToReadme
 AddLogback
 
 
-editor SetApplicationProperties
-
-param name: @project_name
-param version: @semantic_version
-param group_id: @group_id
-
-with properties p when path = "src/main/resources/application.properties"
-begin
-  do setProperty "info.app.artifact_id" name
-	do setProperty "info.app.group_id" group_id
-	do setProperty "info.app.version" version
-end
-
-
 editor SwitchReadmes
 
 param name: @project_name
 
 @description "Description of the new project"
+@displayName "Description"
 param description: .*
 
 let template = "readme.vm"
@@ -98,6 +86,8 @@ with file f when path = "README.md"
 
 editor AddLogback
 
+@description "Root Package of the Project"
+@displayName "Project Root Package"
 param new_package: @java_package
 
 let template = "logback.vm"

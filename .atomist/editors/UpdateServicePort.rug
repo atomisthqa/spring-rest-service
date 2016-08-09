@@ -1,5 +1,11 @@
+@tag "java"
+@tag "spring"
+@tag "spring-boot"
+@description "Updates references to the service's port"
 editor UpdateServicePort
 
+@description "Port to Switch to"
+@displayName "Project Root Package"
 param servicePort: .*
 
 with properties p when path = "src/main/resources/application.properties"
