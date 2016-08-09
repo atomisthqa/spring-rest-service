@@ -34,7 +34,6 @@ given
   UpdateServicePort
 
 then
-  dumpAll
-  and fileExists dockerfile
+  fileExists dockerfile
   and fileContains dockerfile "EXPOSE 8181"
   and fileContains dockerfile "blah"
