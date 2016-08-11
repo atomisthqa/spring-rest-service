@@ -20,33 +20,50 @@ uses atomist.common-editors.ClassRenamer
 
 @maxLength 21
 @description "Name of the new project."
-@displayName "project name"
-param name: @project_name
+@displayName "Project Name"
+param projectName: @project_name
 
+@default "myartifact"
+@optional
+@maxLength 21
+@description "The Maven Artifact ID."
+@displayName "Maven Artifact ID"
+param artifactId: @artifact_id
+
+@default ""
+@optional
 @description "Description of the new project"
 @displayName "description"
+@validInput "Free Text"
 param description: .*
 
+@default "mygroup"
 @description "Group id: Used by Maven"
+@optional
 @displayName "Group ID"
-param group_id: @group_id
+@validInput "TODO"
+param groupId: @group_id
 
 @default "0.0.1-SNAPSHOT"
 @displayName "Semantic Version"
 @optional
 @description "Version of your project. Used in Maven POM"
+@validInput "TODO"
 param version: @semantic_version
 
 @default "com.myorg"
 @displayName "Root Package"
 @optional
 @description "Root package for your generated source"
-param new_package: @java_package
+@validInput "TODO"
+param rootPackage: @java_package
 
-@description "New name for the class"
+@default "MyService"
+@optional
+@description "New name for the initial service class"
 @displayName "Class Name"
-@validInput "Java class names may contain alphanumeric characters, $ and _"
-param new_class: @java_class
+@validInput "Java Class names may contain alphanumeric characters, $ and _, i.e. MyService"
+param serviceClassName: @java_class
 
 # Pattern to replace in old class name.
 let old_class = "SpringRest"
@@ -54,22 +71,26 @@ let old_class = "SpringRest"
 # Root package of the old file
 let old_package = "com.atomist.springrest"
 
-# Now we invoke generic editors that do the actual work
-
 SwitchReadmes
-PomParameterizer artifact_id = name
-PackageMove
-ClassRenamer
+PomParameterizer artifact_id = artifactId, group_id = groupId, name = projectName
+PackageMove new_package = rootPackage
+ClassRenamer new_class = serviceClassName
 AddCreationDateToReadme
 AddLogback
 
 
+@description "Switches READMEs replacing markers with a set of parameters"
 editor SwitchReadmes
 
-param name: @project_name
+@description "Name of the new project"
+@displayName "Name"
+param projectName: @project_name
 
+@default ""
+@optional
 @description "Description of the new project"
-@displayName "Description"
+@displayName "description"
+@validInput "Free Text"
 param description: .*
 
 let template = "readme.vm"
@@ -77,18 +98,20 @@ let template = "readme.vm"
 with project p
 	do merge template to "README.md"
 
-
+@description "Adds a creation date to the README.md"
 editor AddCreationDateToReadme
 
 with file f when path = "README.md"
   do replace "{{creation_date}}" { new Date().toISOString().split('T')[0] }
 
 
+@description "Switches READMEs replacing markers with a set of parameters"
 editor AddLogback
 
-@description "Root Package of the Project"
-@displayName "Project Root Package"
-param new_package: @java_package
+@displayName "Root Package"
+@description "Root package for your generated source"
+@validInput "Java class names may contain alphanumeric characters, $ and _"
+param rootPackage: @java_package
 
 let template = "logback.vm"
 

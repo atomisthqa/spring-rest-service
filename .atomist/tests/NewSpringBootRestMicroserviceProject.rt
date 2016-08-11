@@ -1,11 +1,12 @@
 scenario New project should pass smoke test
 
-let project_name = "foo"
-let new_package = "com.foo.bar"
-let ver = "0.0.1"
-let newclass = "MyTest"
+let projectName = "MyService"
+let artifactId = "foo"
+let rootPackage = "com.foo.bar"
+let version = "0.0.1"
+let serviceClassName = "MyTest"
 let propsFile = "src/main/resources/application.properties"
-let grpid = "somegroup"
+let groupId = "somegroup"
 
 let pomPath = "pom.xml"
 let readmePath = "README.md"
@@ -17,19 +18,15 @@ given
 
 when
 NewSpringBootRestMicroserviceProject
-    name = project_name,
-    group_id = grpid,
-    version = ver,
-    new_class = newclass
 
 then
-  fileExists { "src/main/java/com/foo/bar/" + newclass + "Application.java" }
-  and fileExists { "src/test/java/com/foo/bar/" + newclass + "ApplicationTests.java" }
-  and fileContains pomPath name
-  and fileContains pomPath ver
-  and fileContains readmePath project_name
+  fileExists { "src/main/java/com/foo/bar/" + serviceClassName + "Application.java" }
+  and fileExists { "src/test/java/com/foo/bar/" + serviceClassName + "ApplicationTests.java" }
+  and fileContains pomPath artifactId
+  and fileContains pomPath version
+  and fileContains readmePath projectName
   and fileContains readmePath description
   and fileExists propsFile
   and fileContains propsFile "server.port=8080"
   and fileExists logbackFile
-  and fileContains logbackFile new_package
+  and fileContains logbackFile rootPackage

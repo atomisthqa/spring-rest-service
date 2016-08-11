@@ -13,7 +13,7 @@
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <logger name="$new_package" level="DEBUG" additivity="false">
+    <logger name="$rootPackage" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 

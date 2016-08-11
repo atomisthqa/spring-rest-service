@@ -42,8 +42,8 @@ let mavenResourcesPlugin = """<plugin>
                 </executions>
             </plugin>"""
 
-with xml x when path = "pom.xml" and { !x.content().contains("maven-resources-plugin") }
-  do addChildNode "//project/build/plugins" "plugin" mavenResourcesPlugin
+with pom p when path = "pom.xml"
+  do addOrReplaceBuildPlugin "org.apache.maven.plugins" "maven-resources-plugin" mavenResourcesPlugin
 
 
 editor AddDockerMavenDependencyPlugin
@@ -83,8 +83,8 @@ let mavenDependencyPlugin = """<plugin>
                 </executions>
             </plugin>"""
 
-with xml x when path = "pom.xml" and { !x.content().contains("maven-dependency-plugin") }
-  do addChildNode "//project/build/plugins" "plugin" mavenDependencyPlugin
+with pom p when path = "pom.xml"
+  do addOrReplaceBuildPlugin "org.apache.maven.plugins" "maven-dependency-plugin" mavenDependencyPlugin
 
 
 editor AddDockerMavenPlugin
@@ -113,8 +113,8 @@ let dockerMavenPlugin = """<plugin>
                 </configuration>
             </plugin>"""
 
-with xml x when path = "pom.xml" and { !x.content().contains("docker-maven-plugin") }
-  do addChildNode "//project/build/plugins" "plugin" dockerMavenPlugin
+with pom p when path = "pom.xml"
+  do addOrReplaceBuildPlugin "com.spotify" "docker-maven-plugin" dockerMavenPlugin
 
 
 editor AddGitMavenPlugin
@@ -124,8 +124,8 @@ let gitPlugin = """<plugin>
                 <artifactId>git-commit-id-plugin</artifactId>
             </plugin>"""
 
-with xml x when path = "pom.xml" and { !x.content().contains("git-commit-id-plugin") }
-  do addChildNode "//project/build/plugins" "plugin" gitPlugin
+with pom p when path = "pom.xml"
+  do addOrReplaceBuildPlugin "pl.project13.maven" "git-commit-id-plugin" gitPlugin
 
 
 editor AddDockerfile
