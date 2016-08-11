@@ -19,7 +19,7 @@ uses atomist.common-editors.PackageMove
 uses atomist.common-editors.ClassRenamer
 
 @maxLength 21
-@description "Name of the new project."
+@description "Name of your new project."
 @displayName "Project Name"
 param projectName: @project_name
 
@@ -27,8 +27,22 @@ param projectName: @project_name
 @optional
 @maxLength 21
 @description "The Maven Artifact ID."
-@displayName "Maven Artifact ID"
+@displayName "A valid Maven Artifact ID, often used to specify the output of your project"
 param artifactId: @artifact_id
+
+@default "mygroup"
+@description "Group id: Used by Maven"
+@optional
+@displayName "Group ID"
+@validInput "A valid Maven Group ID, often used to indicate your company, group or open source project"
+param groupId: @group_id
+
+@default "0.0.1-SNAPSHOT"
+@displayName "Semantic Version"
+@optional
+@description "A Semantic Version number of the form: MAJOR.MINOR.PATCH"
+@validInput "MAJOR.MINOR.PATCH"
+param version: @semantic_version
 
 @default ""
 @optional
@@ -37,25 +51,11 @@ param artifactId: @artifact_id
 @validInput "Free Text"
 param description: .*
 
-@default "mygroup"
-@description "Group id: Used by Maven"
-@optional
-@displayName "Group ID"
-@validInput "TODO"
-param groupId: @group_id
-
-@default "0.0.1-SNAPSHOT"
-@displayName "Semantic Version"
-@optional
-@description "Version of your project. Used in Maven POM"
-@validInput "TODO"
-param version: @semantic_version
-
 @default "com.myorg"
 @displayName "Root Package"
 @optional
 @description "Root package for your generated source"
-@validInput "TODO"
+@validInput "A valid Java package name, i.e. com.myorg"
 param rootPackage: @java_package
 
 @default "MyService"
