@@ -1,17 +1,17 @@
 scenario New project should pass smoke test
 
-let projectName = "MyService"
-let artifactId = "foo"
-let rootPackage = "com.foo.bar"
+let project_name = "MyService"
+let artifact_id = "foo"
+let root_package = "com.foo.bar"
 let version = "0.0.1"
-let serviceClassName = "MyTest"
-let propsFile = "src/main/resources/application.properties"
-let groupId = "somegroup"
+let service_class_name = "MyTest"
+let props_file = "src/main/resources/application.properties"
+let group_id = "somegroup"
 
-let pomPath = "pom.xml"
-let readmePath = "README.md"
+let pom_path = "pom.xml"
+let readme_path = "README.md"
 let description = "And now for something completely different"
-let logbackFile = "src/main/resources/logback.xml"
+let logback_file = "src/main/resources/logback.xml"
 
 given
   ArchiveRoot
@@ -20,13 +20,13 @@ when
 NewSpringBootRestMicroserviceProject
 
 then
-  fileExists { "src/main/java/com/foo/bar/" + serviceClassName + "Application.java" }
-  and fileExists { "src/test/java/com/foo/bar/" + serviceClassName + "ApplicationTests.java" }
-  and fileContains pomPath artifactId
-  and fileContains pomPath version
-  and fileContains readmePath projectName
-  and fileContains readmePath description
-  and fileExists propsFile
-  and fileContains propsFile "server.port=8080"
-  and fileExists logbackFile
-  and fileContains logbackFile rootPackage
+  fileExists { "src/main/java/com/foo/bar/" + service_class_name + "Application.java" }
+  and fileExists { "src/test/java/com/foo/bar/" + service_class_name + "ApplicationTests.java" }
+  and fileContains pom_path artifact_id
+  and fileContains pom_path version
+  and fileContains readme_path project_name
+  and fileContains readme_path description
+  and fileExists props_file
+  and fileContains props_file "server.port=8080"
+  and fileExists logback_file
+  and fileContains logback_file root_package
