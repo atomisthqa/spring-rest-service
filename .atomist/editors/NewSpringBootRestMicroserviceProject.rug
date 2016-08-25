@@ -44,7 +44,7 @@ param group_id: @group_id
 @validInput "MAJOR.MINOR.PATCH"
 param version: @semantic_version
 
-@default ""
+@default "My new project"
 @optional
 @description "Description of the new project"
 @displayName "description"

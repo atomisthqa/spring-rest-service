@@ -30,3 +30,33 @@ then
   and fileContains props_file "server.port=8080"
   and fileExists logback_file
   and fileContains logback_file root_package
+
+scenario New project without description should pass smoke test
+
+  let project_name = "MyService"
+  let artifact_id = "foo"
+  let root_package = "com.foo.bar"
+  let version = "0.0.1"
+  let service_class_name = "MyTest"
+  let props_file = "src/main/resources/application.properties"
+  let group_id = "somegroup"
+
+  let pom_path = "pom.xml"
+  let readme_path = "README.md"
+  let logback_file = "src/main/resources/logback.xml"
+
+  given
+    ArchiveRoot
+
+  when
+  NewSpringBootRestMicroserviceProject
+
+  then
+    fileExists { "src/main/java/com/foo/bar/" + service_class_name + "Application.java" }
+    and fileExists { "src/test/java/com/foo/bar/" + service_class_name + "ApplicationTests.java" }
+    and fileContains pom_path artifact_id
+    and fileContains pom_path version
+    and fileContains readme_path project_name
+    and fileExists props_file
+    and fileContains props_file "server.port=8080"
+    and fileExists logback_file
