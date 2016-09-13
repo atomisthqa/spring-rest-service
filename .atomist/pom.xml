@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>atomist-project-templates</groupId>
     <artifactId>rest-service</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.3</version>
     <packaging>pom</packaging>
     <name>rest-service</name>
     <description>Rug-based project template for creating a Spring Boot Service</description>
     <parent>
         <groupId>com.atomist</groupId>
         <artifactId>rug-parent</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.3</version>
         <relativePath>../../</relativePath>
     </parent>
     <properties></properties>
@@ -19,13 +19,8 @@
         <dependency>
             <groupId>atomist</groupId>
             <artifactId>common-editors</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.0.3</version>
             <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>com.atomist</groupId>
-            <artifactId>rug-lib</artifactId>
-            <version>0.0.11-20160908062832</version>
         </dependency>
     </dependencies>
     <build>
@@ -37,6 +32,10 @@
             <plugin>
                 <groupId>com.atomist</groupId>
                 <artifactId>rug-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
