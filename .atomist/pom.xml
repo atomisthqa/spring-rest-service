@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>atomist-project-templates</groupId>
     <artifactId>rest-service</artifactId>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
     <packaging>pom</packaging>
     <name>rest-service</name>
     <description>Rug-based project template for creating a Spring Boot Service</description>
     <parent>
         <groupId>com.atomist</groupId>
         <artifactId>rug-parent</artifactId>
-        <version>1.1.1</version>
+        <version>1.2.0</version>
         <relativePath>../../</relativePath>
     </parent>
     <properties></properties>
@@ -19,31 +19,10 @@
         <dependency>
             <groupId>atomist</groupId>
             <artifactId>common-editors</artifactId>
-            <version>1.1.1</version>
+            <version>1.2.0</version>
             <type>zip</type>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.atomist</groupId>
-                <artifactId>rug-maven-plugin</artifactId>
-                <version>1.0.4-SNAPSHOT</version>
-            </plugin>
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
     <repositories>
         <repository>
             <snapshots>
@@ -65,16 +44,16 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <id>atomist-templates-release</id>
-            <name>Atomist Templates Release</name>
+            <id>atomist-public-templates</id>
+            <name>Atomist Public Templates</name>
             <url>https://sforzando.artifactoryonline.com/sforzando/public-templates-dev</url>
         </repository>
         <repository>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
-            <id>atomist-templates-snapshot</id>
-            <name>Atomist Templates Snapshots</name>
+            <id>atomist-private-templates</id>
+            <name>Atomist Private Templates</name>
             <url>https://sforzando.artifactoryonline.com/sforzando/private-templates-dev</url>
         </repository>
     </repositories>
