@@ -116,3 +116,6 @@ let template = "logback.vm"
 
 with project p
 	do merge template to "src/main/resources/logback.xml"
+
+with project p
+  do deleteFile "LICENSE"
