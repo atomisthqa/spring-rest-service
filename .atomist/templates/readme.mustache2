@@ -24,3 +24,7 @@ This microservice comes with some rudimentary tests as a good starting point for
 ```shell
 > ./mvnw test
 ```
+
+
+---
+Created by Atomist. Need Help? <a href="https://join.atomist.com/">Join our Slack team</a>
