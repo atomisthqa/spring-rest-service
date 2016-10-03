@@ -75,3 +75,4 @@ scenario New project without description should pass smoke test
     and fileExists props_file
     and fileContains props_file "server.port=8080"
     and fileExists logback_file
+    and fileContains readme_path "Created by Atomist. Need Help?"

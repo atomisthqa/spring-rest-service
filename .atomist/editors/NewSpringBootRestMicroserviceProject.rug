@@ -91,6 +91,7 @@ PackageMove new_package = root_package
 ClassRenamer new_class = service_class_name
 AddCreationDateToReadme
 AddLogback
+DeleteLicense
 
 
 @description "Switches READMEs replacing markers with a set of parameters"
@@ -119,7 +120,7 @@ with file f when path = "README.md"
   do replace "{{creation_date}}" { new Date().toISOString().split('T')[0] }
 
 
-@description "Switches READMEs replacing markers with a set of parameters"
+@description "Adds logback to the project"
 editor AddLogback
 
 @displayName "Root Package"
@@ -132,5 +133,9 @@ let template = "logback.vm"
 with project p
 	do merge template to "src/main/resources/logback.xml"
 
+
+@description "Delete license file from the template content"
+editor DeleteLicense
+
 with project p
-  do deleteFile "LICENSE"
+	  do deleteFile "LICENSE"
