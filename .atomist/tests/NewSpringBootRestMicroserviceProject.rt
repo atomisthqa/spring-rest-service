@@ -45,6 +45,8 @@ then
   and fileContains props_file "server.port=8080"
   and fileExists logback_file
   and fileContains logback_file root_package
+  and fileContains readme_path "Created by Atomist. Need Help?"
+  and { !result.fileExists("LICENSE") }
 
 scenario New project without description should pass smoke test
 
@@ -75,4 +77,3 @@ scenario New project without description should pass smoke test
     and fileExists props_file
     and fileContains props_file "server.port=8080"
     and fileExists logback_file
-    and fileContains readme_path "Created by Atomist. Need Help?"
