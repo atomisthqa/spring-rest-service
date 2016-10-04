@@ -22,9 +22,8 @@
         </license>
     </licenses>
     <scm>
-        <developerConnection>scm:git:https://github.com/atomist-project-templates/spring-rest-service.git</developerConnection>
-      <tag>spring-rest-service-2.0.1</tag>
-  </scm>
+        <developerConnection>scm:git:git@github.com:atomist-project-templates/spring-rest-service.git</developerConnection>
+    </scm>
     <dependencyManagement />
     <dependencies>
         <dependency>
