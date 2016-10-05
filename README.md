@@ -1,6 +1,6 @@
 # Spring Boot Rest Microservice Template
 
-[<img src="https://images.atomist.com/button/create-project.png" width="267" alt="Set Started with Atomist"/>](https://api.atomist.com/v1/projects/generators/16271c54-e671-4be6-a30c-084aba8083ed)
+[<img src="https://images.atomist.com/button/create-project.png" width="267" alt="Get Started with Atomist"/>](https://api.atomist.com/v1/projects/generators/16271c54-e671-4be6-a30c-084aba8083ed)
 
 New style, editor-driven, Atomist Spring rest service. Used to generate new Spring Boot rest projects.
 
