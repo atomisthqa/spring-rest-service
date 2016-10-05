@@ -90,7 +90,6 @@ PomParameterizer name = project_name
 PackageMove new_package = root_package
 ClassRenamer new_class = service_class_name
 AddCreationDateToReadme
-AddLogback
 DeleteLicense
 
 

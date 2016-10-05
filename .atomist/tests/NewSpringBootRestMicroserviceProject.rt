@@ -26,7 +26,6 @@ let group_id = "somegroup"
 let pom_path = "pom.xml"
 let readme_path = "README.md"
 let description = "And now for something completely different"
-let logback_file = "src/main/resources/logback.xml"
 
 given
   ArchiveRoot
@@ -43,8 +42,6 @@ then
   and fileContains readme_path description
   and fileExists props_file
   and fileContains props_file "server.port=8080"
-  and fileExists logback_file
-  and fileContains logback_file root_package
   and fileContains readme_path "Created by Atomist. Need Help?"
   and { !result.fileExists("LICENSE") }
 
@@ -60,7 +57,6 @@ scenario New project without description should pass smoke test
 
   let pom_path = "pom.xml"
   let readme_path = "README.md"
-  let logback_file = "src/main/resources/logback.xml"
 
   given
     ArchiveRoot
@@ -76,4 +72,4 @@ scenario New project without description should pass smoke test
     and fileContains readme_path project_name
     and fileExists props_file
     and fileContains props_file "server.port=8080"
-    and fileExists logback_file
+  
