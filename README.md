@@ -1,8 +1,10 @@
-# Spring Boot Rest Microservice Template
+# spring-rest-service
+
+Spring Boot Rest Microservice Generator
 
 [<img src="https://images.atomist.com/button/create-project.png" width="267" alt="Get Started with Atomist"/>](https://api.atomist.com/v1/projects/generators/16271c54-e671-4be6-a30c-084aba8083ed)
 
-New style, editor-driven, Atomist Spring rest service. Used to generate new Spring Boot rest projects.
+Rug Generator to create Spring Boot Rest microservice projects. 
 
 Atomist content is under the `.atomist` directory. You can compile, run and edit the Java project.
 
@@ -24,6 +26,15 @@ This microservice comes with some rudimentary tests as a good starting point for
 
 ```shell
 > ./mvnw test
+```
+
+To build and test Rug sources locally
+--------------
+
+To run the Atomist tests and editors in this project, execute the following command:
+
+```shell
+> ./mvnw -f .atomist/pom.xml test
 ```
 
 ---
