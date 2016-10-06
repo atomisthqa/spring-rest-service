@@ -72,4 +72,3 @@ scenario New project without description should pass smoke test
     and fileContains readme_path project_name
     and fileExists props_file
     and fileContains props_file "server.port=8080"
-  
