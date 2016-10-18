@@ -40,8 +40,8 @@ param project_name: @project_name
 @default "myartifact"
 @optional
 @maxLength 21
-@description "The Maven Artifact ID."
-@displayName "A valid Maven Artifact ID, often used to specify the output of your project"
+@description "A valid Maven Artifact ID, often used to specify the output of your project"
+@displayName "Maven Artifact ID"
 param artifact_id: @artifact_id
 
 @default "mygroup"
