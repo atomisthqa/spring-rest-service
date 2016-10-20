@@ -2,6 +2,7 @@
 
 git.properties
 provenance.properties
+bin
 
 ### Scala ###
 *.class
