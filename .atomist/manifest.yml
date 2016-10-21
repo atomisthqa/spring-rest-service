@@ -1,4 +1,4 @@
-group: atomist-project-templates
+group: atomist-project-templates-test
 artifact: spring-rest-service
 version: "3.5.2"
 
